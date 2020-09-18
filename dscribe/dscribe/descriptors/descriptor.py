@@ -26,7 +26,13 @@ from dscribe.utils.species import get_atomic_numbers
 try:
     from joblib import Parallel, delayed
 except ImportError:
-    pass
+    def Parallel(n_jobs=None, backend=None, verbose=0, timeout=None, pre_dispatch='2 * n_jobs', batch_size='auto', temp_folder=None, max_nbytes='1M', mmap_mode='r', prefer=None, require=None):
+        def eval(iterator):
+            return list(iterator)
+        return eval
+    def delayed(arg):
+        return arg
+
 
 class Descriptor(ABC):
     """An abstract base class for all descriptors.

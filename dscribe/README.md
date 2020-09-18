@@ -7,8 +7,8 @@
 * The code has been modified for use in the *Computational Physics Project* in the Linköping University course: *Project Course in Applied Physics, CDIO (TFYA92)*.
   Dscribe was selected because it is a not overly large code with source code in good shape (docstrings, tests, documentation, etc.)
 
-  - The code has been modified so it can run simple examples without dependencies directly out of the git repository.
-    What has been verified to work is creating `CoulombMatrix` or `SineMatrix` for a single system using `.create(<system>)`.
+  - The code has been modified so it can run a few simple examples without dependencies directly out of the git repository.
+    What has been verified to work is creating `CoulombMatrix` or `SineMatrix` instances and use them.
 
   - To keep the size of the repository down for student downloads, the git history has been removed.
 
@@ -24,27 +24,39 @@ For more details and tutorials, visit the homepage at:
 # Quick Example
 ```python
 import numpy as np
-from ase.build import molecule
-from dscribe.descriptors import SOAP
+from ase.build import molecule, bulk
 from dscribe.descriptors import CoulombMatrix
+from dscribe.descriptors import SineMatrix
 
 # Define atomic structures
-samples = [molecule("H2O"), molecule("NO2"), molecule("CO2")]
+samples_mol = [molecule("H2O"), molecule("NO2"), molecule("CO2")]
+samples_bulk = [bulk("NaCl", "rocksalt", a=5.64),  bulk("Al", "fcc", a=4.046)]
 
 # Setup descriptors
-cm_desc = CoulombMatrix(n_atoms_max=3, permutation="sorted_l2")
-soap_desc = SOAP(species=["C", "H", "O", "N"], rcut=5, nmax=8, lmax=6, crossover=True)
+cm_desc = CoulombMatrix(
+    n_atoms_max=3,
+    permutation="sorted_l2")
+sm_desc = SineMatrix(
+    n_atoms_max=6,
+    permutation="sorted_l2",
+    sparse=False,
+    flatten=True)
 
 # Create descriptors as numpy arrays or scipy sparse matrices
-water = samples[0]
+water = samples_mol[0]
 coulomb_matrix = cm_desc.create(water)
-soap = soap_desc.create(water, positions=[0])
+
+nacl = samples_bulk[0]
+sine_matrix = sm_desc.create(nacl)
 
 # Easy to use also on multiple systems, can be parallelized across processes
-coulomb_matrices = cm_desc.create(samples)
-coulomb_matrices = cm_desc.create(samples, n_jobs=3)
-oxygen_indices = [np.where(x.get_atomic_numbers() == 8)[0] for x in samples]
-oxygen_soap = soap_desc.create(samples, oxygen_indices, n_jobs=3)
+coulomb_matrices = cm_desc.create(samples_mol)
+coulomb_matrices = cm_desc.create(samples_mol, n_jobs=3)
+oxygen_indices = [np.where(x.get_atomic_numbers() == 8)[0] for x in samples_mol]
+
+sine_matrices =  cm_desc.create(samples_bulk)
+
+
 ```
 
 # Currently implemented descriptors
