@@ -25,7 +25,10 @@ import ase.data
 from dscribe.core import System
 from dscribe.descriptors import Descriptor
 #from dscribe.libmbtr.mbtrwrapper import MBTRWrapper
-from dscribe.ext import MBTRWrapper
+try:
+    from dscribe.ext import MBTRWrapper
+except ImportError:
+    pass
 import dscribe.utils.geometry
 
 

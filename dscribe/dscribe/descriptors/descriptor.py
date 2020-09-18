@@ -23,8 +23,10 @@ from ase import Atoms
 from dscribe.core.system import System
 from dscribe.utils.species import get_atomic_numbers
 
-from joblib import Parallel, delayed
-
+try:
+    from joblib import Parallel, delayed
+except ImportError:
+    pass
 
 class Descriptor(ABC):
     """An abstract base class for all descriptors.

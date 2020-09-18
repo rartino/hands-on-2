@@ -24,7 +24,10 @@ from dscribe.core import System
 
 from ase import Atoms
 
-from dscribe.ext import ACSFWrapper
+try:
+    from dscribe.ext import ACSFWrapper
+except ImportError:
+    pass
 
 import dscribe.utils.geometry
 

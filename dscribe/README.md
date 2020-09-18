@@ -7,7 +7,8 @@
 * The code has been modified for use in the *Computational Physics Project* in the Linköping University course: *Project Course in Applied Physics, CDIO (TFYA92)*.
   Dscribe was selected because it is a not overly large code with source code in good shape (docstrings, tests, documentation, etc.)
 
-  - Changes related to the hands-on exercises has been introduced in the source code.
+  - The code has been modified so it can run simple examples without dependencies directly out of the git repository.
+    What has been verified to work is creating `CoulombMatrix` or `SineMatrix` for a single system using `.create(<system>)`.
 
   - To keep the size of the repository down for student downloads, the git history has been removed.
 

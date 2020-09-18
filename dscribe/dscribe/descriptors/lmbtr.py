@@ -17,7 +17,10 @@ import sys
 import math
 import numpy as np
 
-from sklearn.preprocessing import normalize
+try:
+    from sklearn.preprocessing import normalize
+except ImportError:
+    pass
 
 from scipy.sparse import coo_matrix
 from scipy.sparse import lil_matrix
@@ -29,7 +32,10 @@ import ase.data
 from dscribe.core import System
 from dscribe.descriptors import MBTR
 #from dscribe.libmbtr.mbtrwrapper import MBTRWrapper
-from dscribe.ext import MBTRWrapper
+try:
+    from dscribe.ext import MBTRWrapper
+except ImportError:
+    pass
 import dscribe.utils.geometry
 
 
