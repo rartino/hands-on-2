@@ -21,21 +21,38 @@ atomistic systems.
 For more details and tutorials, visit the homepage at:
 [https://singroup.github.io/dscribe/](https://singroup.github.io/dscribe/)
 
-# Quick Example
+# Quick Examples
 ```python
 import numpy as np
-from ase.build import molecule, bulk
+from ase.build import molecule
 from dscribe.descriptors import CoulombMatrix
-from dscribe.descriptors import SineMatrix
 
 # Define atomic structures
 samples_mol = [molecule("H2O"), molecule("NO2"), molecule("CO2")]
-samples_bulk = [bulk("NaCl", "rocksalt", a=5.64),  bulk("Al", "fcc", a=4.046)]
 
 # Setup descriptors
 cm_desc = CoulombMatrix(
     n_atoms_max=3,
     permutation="sorted_l2")
+
+# Create descriptors as numpy arrays or scipy sparse matrices
+water = samples_mol[0]
+coulomb_matrix = cm_desc.create(water)
+
+# Easy to use also on multiple systems, can be parallelized across processes
+coulomb_matrices = cm_desc.create(samples_mol)
+coulomb_matrices = cm_desc.create(samples_mol, n_jobs=3)
+oxygen_indices = [np.where(x.get_atomic_numbers() == 8)[0] for x in samples_mol]
+```
+
+```python
+from ase.build import bulk
+from dscribe.descriptors import SineMatrix
+
+# Define atomic structures
+samples_bulk = [bulk("NaCl", "rocksalt", a=5.64),  bulk("Al", "fcc", a=4.046)]
+
+# Setup descriptors
 sm_desc = SineMatrix(
     n_atoms_max=6,
     permutation="sorted_l2",
@@ -43,20 +60,11 @@ sm_desc = SineMatrix(
     flatten=True)
 
 # Create descriptors as numpy arrays or scipy sparse matrices
-water = samples_mol[0]
-coulomb_matrix = cm_desc.create(water)
-
 nacl = samples_bulk[0]
 sine_matrix = sm_desc.create(nacl)
 
 # Easy to use also on multiple systems, can be parallelized across processes
-coulomb_matrices = cm_desc.create(samples_mol)
-coulomb_matrices = cm_desc.create(samples_mol, n_jobs=3)
-oxygen_indices = [np.where(x.get_atomic_numbers() == 8)[0] for x in samples_mol]
-
 sine_matrices =  cm_desc.create(samples_bulk)
-
-
 ```
 
 # Currently implemented descriptors
