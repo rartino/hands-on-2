@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 
-from read_tmqm import tmqm_properties
+from read_tmqm import read_tmqm_files
 import matplotlib.pyplot as plt
+
+tmqm_properties = read_tmqm_files('/courses/TFYA74/data/tmQM_y.csv','/courses/TFYA74/data/tmQM_X.xyz')
+
+print("Available properties:",tmqm_properties.dtype.names)
 
 plt.hist(tmqm_properties["Electronic_E"], bins=50)
 
