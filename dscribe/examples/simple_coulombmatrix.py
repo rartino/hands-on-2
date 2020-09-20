@@ -13,5 +13,9 @@ cm_desc = CoulombMatrix(
 water = samples_mol[0]
 coulomb_matrix = cm_desc.create(water)
 
+print("Coulomb matrix for water:\n",coulomb_matrix)
+
 # Create multiple descriptors
 coulomb_matrices = cm_desc.create(samples_mol)
+
+print("List of Coulomb matrices:\n", coulomb_matrices)
