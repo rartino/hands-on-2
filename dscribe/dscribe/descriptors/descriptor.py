@@ -26,6 +26,8 @@ from dscribe.utils.species import get_atomic_numbers
 try:
     from joblib import Parallel, delayed
 except ImportError:
+    # Change implemented for TFYA92: if joblib is not installed,
+    # use trivial "emulation" of Parallel by simply executing everything in sequence.
     def Parallel(n_jobs=None, backend=None, verbose=0, timeout=None, pre_dispatch='2 * n_jobs', batch_size='auto', temp_folder=None, max_nbytes='1M', mmap_mode='r', prefer=None, require=None):
         def eval(iterator):
             return list(iterator)
