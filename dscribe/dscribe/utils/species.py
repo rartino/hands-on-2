@@ -17,7 +17,7 @@ import numpy as np
 import ase.data
 
 
-def symbols_to_numbers(symbols):
+def symbols_to_numbers_old(symbols):
     """Transforms a set of chemical symbols into the corresponding atomic
     numbers.
 
@@ -39,6 +39,42 @@ def symbols_to_numbers(symbols):
         numbers.append(number)
 
     return np.array(numbers, dtype=int)
+
+
+def symbols_to_numbers(symbols):
+    """Transforms a nested list of chemical symbols into the corresponding atomic
+    numbers.
+
+    Args:
+        symbols(iterable): List of chemical symbols, possibly nested with iterable items.
+
+    Returns:
+        np.ndarray: Atomic numbers as an (possibly nested) array of integers.
+    """
+    numbers = []
+
+    for symbol in symbols:
+        if isinstance(number, Iterable):
+            subnumbers = []
+            for subsymbol in symbol:
+                subnumber = ase.data.atomic_numbers.get(subsymbol)
+                if subnumber is None:
+                    raise ValueError(
+                        "Given chemical symbol {} is invalid and doesn't have an atomic"
+                        " number associated with it.".format(subsymbol)
+                    )
+                subnumbers.append(subnumber)                
+            numbers.append(subnumbers)
+        else:
+            number = ase.data.atomic_numbers.get(symbol)
+            if number is None:
+                raise ValueError(
+                    "Given chemical symbol {} is invalid and doesn't have an atomic"
+                    " number associated with it.".format(symbol)
+                )
+            numbers.append(number)
+
+    return np.array(numbers)
 
 
 def get_atomic_numbers(species):
