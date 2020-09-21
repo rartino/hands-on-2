@@ -1,5 +1,9 @@
+import sys
 import unittest
+
 from dscribe.utils.species import symbols_to_numbers
+
+from numpy import array
 import ase.data
 
 class UtilsTests(unittest.TestCase):
@@ -15,12 +19,12 @@ class UtilsTests(unittest.TestCase):
     def test_one_level_nested_symbols_to_atmoic_number(self):
         """Test that nested lists work in test_symbols_to_atomic_number"""
         nested_atomic_numbers = symbols_to_numbers(['Al', 'Si', ['Ar', 'H', 'K']])
-        self.assertEqual(nested_atomic_numbers,[13, 14, [18, 1, 19]])
+        self.assertTrue((nested_atomic_numbers==array([13, 14, [18, 1, 19]],dtype=object)).all())
 
     def test_multiple_levels_nested_symbols_to_atmoic_number(self):
         """Test that nested lists work in test_symbols_to_atomic_number"""
         nested_atomic_numbers = symbols_to_numbers(['Al', 'Si', ['Ar', 'H', ['C', ['Ne']], 'K']])
-        self.assertEqual(nested_atomic_numbers,[13, 14, [18, 1, [6, [10]], 19])
+        self.assertTrue((nested_atomic_numbers==array([13, 14, [18, 1, [6, [10]], 19]],dtype=object)).all())
 
 
 if __name__ == '__main__':
