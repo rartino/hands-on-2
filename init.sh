@@ -3,4 +3,4 @@
 HERE="${BASH_SOURCE[0]}"
 eval HEREDIR="$(dirname "$HERE")"
 DIR="$(cd "$HEREDIR"; pwd -P)"
-export PYTHONPATH="$DIR/dscribe:$PYTHONPATH"
+export PYTHONPATH="/courses/TFYA74/python:$DIR/dscribe:$PYTHONPATH"
