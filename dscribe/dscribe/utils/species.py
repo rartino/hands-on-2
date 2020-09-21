@@ -46,7 +46,7 @@ def symbols_to_numbers(symbols):
     numbers.
 
     Args:
-        symbols(iterable): List of chemical symbols, possibly nested with iterable items.
+        symbols(iterable): List of chemical symbols, possibly containing sublists.
 
     Returns:
         np.ndarray: Atomic numbers as an (possibly nested) array of integers.
@@ -54,7 +54,7 @@ def symbols_to_numbers(symbols):
     numbers = []
 
     for symbol in symbols:
-        if isinstance(number, Iterable):
+        if isinstance(symbol, list):
             subnumbers = []
             for subsymbol in symbol:
                 subnumber = ase.data.atomic_numbers.get(subsymbol)
@@ -74,7 +74,7 @@ def symbols_to_numbers(symbols):
                 )
             numbers.append(number)
 
-    return np.array(numbers)
+    return np.array(numbers, dtype=object)
 
 
 def get_atomic_numbers(species):
