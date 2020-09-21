@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import pickle
 import numpy
 from numpy.lib.recfunctions import append_fields
 
@@ -23,7 +24,7 @@ def _read_xyzlist_formulas(xyzfile):
     f.close()
     return numpy.array(formulas,dtype=str)
 
-def read_tmqm_files(csvfile,xyzfile):
+def read_tmqm_properties(csvfile,xyzfile):
     """Reads the csv and xyz files comprising the tmqm dataset.
 
     Args:
@@ -40,3 +41,7 @@ def read_tmqm_files(csvfile,xyzfile):
 
 # Available properties columns: CSD_code, Electronic_E, Dispersion_E, Dipole_M, Metal_q, HL_Gap, HOMO_Energy, LUMO_Energy, Polarizability, formula
 
+def read_tmqm_structures(picklefile):
+    with open(picklefile, 'rb') as handle:
+        structures = pickle.load(handle)
+    return structures

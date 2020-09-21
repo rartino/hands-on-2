@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-from read_tmqm import read_tmqm_files
+from read_tmqm import read_tmqm_properties
 import matplotlib.pyplot as plt
 
-tmqm_properties = read_tmqm_files('/courses/TFYA74/data/tmQM_y.csv','/courses/TFYA74/data/tmQM_X.xyz')
+tmqm_properties = read_tmqm_properties('/courses/TFYA74/data/tmQM_y.csv','/courses/TFYA74/data/tmQM_X.xyz')
 
 print("Available properties:",tmqm_properties.dtype.names)
 
