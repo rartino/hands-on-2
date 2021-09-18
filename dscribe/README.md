@@ -4,7 +4,7 @@
   IT IS NOT INTENDED FOR GENERAL USE! DO NOT USE THIS CODE FOR ANY OTHER PURPOSES,
   USE THE OFFICIAL REPOSITORY INSTEAD AT: https://github.com/SINGROUP/dscribe**
 
-* The code has been modified for use in the *Computational Physics Project* in the Linköping University course: *Project Course in Applied Physics, CDIO (TFYA92)*.
+* The code has been modified for use in a *Computational Physics Project* course at Linköping University.
   Dscribe was selected because it is a not overly large code with source code in good shape (docstrings, tests, documentation, etc.)
 
   - The code has been modified so it can run a few simple examples without dependencies directly out of the git repository.
